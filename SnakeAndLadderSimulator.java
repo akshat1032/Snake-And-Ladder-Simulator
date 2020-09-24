@@ -22,20 +22,27 @@ public class SnakeAndLadderSimulator {
 			dieRoll = (int)(Math.floor(Math.random() * 10) % 7);
 		}
 		
-		option = (int)(Math.floor(Math.random() * 10) % 3);
+		while(position < 100) {
+			
+			option = (int)(Math.floor(Math.random() * 10) % 3);
 		
-		//Checking For Option of No Play, Snake or Ladder
-		switch(option) {
+			//Checking For Option of No Play, Snake or Ladder
+			switch(option) {
 		
-		case IS_LADDER:
-			position = position + dieRoll;
-			break;
-		case IS_SNAKE:
-			position = position - dieRoll;
-			break;
-		default:
-			position = position - 0; // No change in position
+			case IS_LADDER:
+				position = position + dieRoll;
+				break;
+			case IS_SNAKE:
+				position = position - dieRoll;
+				if (position < 0) {
+					
+					position = 0;
+				}
+				break;
+			default:
+				position = position - 0; // No change in position
+			}
 		}
+		System.out.println("Player wins");
 	}
-
 }
