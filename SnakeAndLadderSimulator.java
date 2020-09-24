@@ -12,25 +12,37 @@ public class SnakeAndLadderSimulator {
 		//Variable
 		int position = 0;
 		int dieRoll = 0;
-		int option = -1;
+		int option = 0;
 		
 		System.out.println("Start position : "+position);
-				
-		//Die Rolling
-		while (dieRoll == 0) {
-			
-			dieRoll = (int)(Math.floor(Math.random() * 10) % 7);
-		}
 		
-		while(position < 100) {
+		while (position < 100) {
+				
+			//Die Rolling
+			while (true) {
+			
+				dieRoll = (int)(Math.floor(Math.random() * 10) % 7);
+				if (dieRoll == 0)
+					continue;
+				else
+					break;
+			}
+			System.out.println(dieRoll);
 			
 			option = (int)(Math.floor(Math.random() * 10) % 3);
 		
 			//Checking For Option of No Play, Snake or Ladder
 			switch(option) {
-		
+			
+			case IS_NO_PLAY:
+				position = position - 0;
+				break;
 			case IS_LADDER:
 				position = position + dieRoll;
+				if (position > 100) {
+					
+					position = position - dieRoll;
+				}
 				break;
 			case IS_SNAKE:
 				position = position - dieRoll;
@@ -40,7 +52,7 @@ public class SnakeAndLadderSimulator {
 				}
 				break;
 			default:
-				position = position - 0; // No change in position
+				System.exit(0);
 			}
 		}
 		System.out.println("Player wins");
