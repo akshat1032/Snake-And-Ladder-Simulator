@@ -10,15 +10,20 @@ public class SnakeAndLadderSimulator {
 	public static void main(String[] args) {
 		
 		//Variable
+		int positionPlayerOne = 0;
+		int positionPlayerTwo = 0;
 		int position = 0;
 		int dieRoll = 0;
 		int option = 0;
-		int dieRollCount = 0;
+		int playerCount = 0;
 		
-		System.out.println("Start position : "+position);
-		
-		while (position < 100) {
+		System.out.println("Start position for Player One : "+positionPlayerOne);
+		System.out.println("Start position for Player Two : "+positionPlayerTwo);
 				
+		while (position < 100) {
+			
+			playerCount++;
+			
 			//Die Rolling
 			while (true) {
 			
@@ -29,7 +34,6 @@ public class SnakeAndLadderSimulator {
 					break;
 			}
 			
-			dieRollCount = dieRollCount + 1;
 			option = (int)(Math.floor(Math.random() * 10) % 3);
 		
 			//Checking For Option of No Play, Snake or Ladder
@@ -39,12 +43,15 @@ public class SnakeAndLadderSimulator {
 				position = position - 0;
 				break;
 			case IS_LADDER:
+				playerCount--;
 				position = position + dieRoll;
-				if (position > 100) {
+				if (position == 100)
+					break;
+				else if (position > 100) {
 					
 					position = position - dieRoll;
 				}
-				break;
+				continue;
 			case IS_SNAKE:
 				position = position - dieRoll;
 				if (position < 0) {
@@ -55,8 +62,24 @@ public class SnakeAndLadderSimulator {
 			default:
 				System.exit(0);
 			}
-			System.out.println("Current position : "+position);
+			if (playerCount % 2 == 0) {
+				positionPlayerTwo = position;
+				position = positionPlayerOne;
+				playerCount = 0;
+			}
+			else {
+				positionPlayerOne = position;
+				position = positionPlayerTwo;
+				playerCount = 1;
+			}
 		}
-		System.out.println("The number of times die was played : "+dieRollCount);
+		if (positionPlayerOne == 100) {
+			System.out.println("Player One Wins");
+		} 
+		else if(positionPlayerTwo == 100) {
+			System.out.println("Player Two Wins");
+		}
+		System.out.println("Final position of Player One : "+ positionPlayerOne);
+		System.out.println("Final position of Player Two : "+ positionPlayerTwo);
 	}
 }
