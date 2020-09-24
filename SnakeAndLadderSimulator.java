@@ -13,6 +13,7 @@ public class SnakeAndLadderSimulator {
 		int position = 0;
 		int dieRoll = 0;
 		int option = 0;
+		int dieRollCount = 0;
 		
 		System.out.println("Start position : "+position);
 		
@@ -27,8 +28,8 @@ public class SnakeAndLadderSimulator {
 				else
 					break;
 			}
-			System.out.println(dieRoll);
 			
+			dieRollCount = dieRollCount + 1;
 			option = (int)(Math.floor(Math.random() * 10) % 3);
 		
 			//Checking For Option of No Play, Snake or Ladder
@@ -54,7 +55,8 @@ public class SnakeAndLadderSimulator {
 			default:
 				System.exit(0);
 			}
+			System.out.println("Current position : "+position);
 		}
-		System.out.println("Player wins");
+		System.out.println("The number of times die was played : "+dieRollCount);
 	}
 }
